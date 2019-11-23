@@ -86,19 +86,17 @@ threads = []
 checkpoint = []
 itworks = []
 failed = []
-street = []
 ok = []
-idfriend = []
-idfromfriend = []
-idmember = []
-emailmember = []
-numbermember = []
+idteman = []
+idfromteman = []
+idmem = []
+emmem = []
+nomem = []
 id = []
 em = []
-emailfromfriends = []
+emfromteman = []
 hp = []
-hpfromfriend = []
-
+hpfromteman = []
 # Set Colors ######
 
 N = '\033[0m'
@@ -274,6 +272,7 @@ def menu():
 	print "\033[1;97m║--\033[1;91m> \033[1;92m3.\033[1;97m See my group list"
 	print "\033[1;97m║--\033[1;91m> \033[1;92m4.\033[1;97m LogOut            "
 	print "\033[1;97m║--\033[1;91m> \033[1;92m5.\033[1;97m Thief Admin Of Group"
+	print "\033[1;97m║--\033[1;91m> \033[1;91m6.\033[1;97m About Program          "
 	print "\033[1;97m║--\033[1;91m> \033[1;91m0.\033[1;97m Exit the programs          "
 	print "║"
 	choose()
@@ -286,7 +285,7 @@ def choose():
 		print "\033[1;91m[!] Wrong input"
 		choose()
 	elif zoal =="1":
-		information()
+		informasi()
 	elif zoal =="2":
 		dump()
 	elif zoal =="3":
@@ -295,14 +294,18 @@ def choose():
 		menu_hack()
 	elif zoal =="5":
 		theif_group()
+	elif zoal =="6":
+		about()
 	elif zoal =="0":
 		ex()
 	else:
 		print "\033[1;91m[!] Wrong input"
 		choose()
 
+
+
 ##### INFO #####
-def information():
+def informasi():
 	try:
 		toket=open('login.txt','r').read()
 	except IOError:
@@ -310,16 +313,16 @@ def information():
 		os.system('rm -rf login.txt')
 		time.sleep(1)
 		login()
-		print logo
-		aid = raw_input('\033[1;91m[+] \033[1;92mEnter ID\033[1;97m/\033[1;92mName\033[1;91m : \033[1;97m')
-		street('\033[1;91m[✺] \033[1;92mWait a minute \033[1;97m...')
-		r = requests.get('https://graph.facebook.com/me/friends?access_token='+toket)
-		cok = json.loads(r.text)
-		for i in cok['data']:
-			if aid in i['name'] or aid in i['id']:
-				x = requests.get("https://graph.facebook.com/"+i['id']+"?access_token="+toket)
-				z = json.loads(x.text)
-				print 42*"\033[1;97m═"
+	print logo
+	aid = raw_input('\033[1;91m[+] \033[1;92mEnter ID\033[1;97m/\033[1;92mName\033[1;91m : \033[1;97m')
+	street('\033[1;91m[✺] \033[1;92mWait a minute \033[1;97m...')
+	r = requests.get('https://graph.facebook.com/me/friends?access_token='+toket)
+	cok = json.loads(r.text)
+	for i in cok['data']:
+		if aid in i['name'] or aid in i['id']:
+			x = requests.get("https://graph.facebook.com/"+i['id']+"?access_token="+toket)
+			z = json.loads(x.text)
+			print 42*"\033[1;97m═"
 			try:
 				print '\033[1;91m[➹] \033[1;92mName\033[1;97m          : '+z['name']
 			except KeyError: print '\033[1;91m[?] \033[1;92mName\033[1;97m          : \033[1;91mNot found'
@@ -355,7 +358,6 @@ def information():
 		menu()
 
 
-
 ##### DUMP #####
 def dump():
 	try:
@@ -387,7 +389,7 @@ def dump_choose():
 	elif cuih =="1":
 		id_friend()
 	elif cuih =="2":
-		idfrom_friends()
+		idfrom_teman()
 	elif cuih =="3":
 		em_member_grup()
 	elif cuih =="4":
@@ -455,7 +457,8 @@ def id_friend():
 		ex()
 
 ##### ID FROM friends #####
-def idfrom_friends():
+
+def idfrom_teman():
 	try:
 		toket=open('login.txt','r').read()
 	except IOError:
@@ -478,20 +481,20 @@ def idfrom_friends():
 			print"\033[1;91m[!] Friend not found"
 			raw_input("\n\033[1;91m[ \033[1;97mBack \033[1;91m]")
 			dump()
-		r=requests.get("https://graph.facebook.com/"+idt+"?fields=friends.limit(5-000)&access_token="+toket)
+		r=requests.get("https://graph.facebook.com/"+idt+"?fields=friends.limit(5000)&access_token="+toket)
 		z=json.loads(r.text)
 		street('\033[1;91m[✺] \033[1;92mGet all friend id from friend \033[1;97m...')
 		print 42*"\033[1;97m═"
-		bz = open('out/id_friend_from_friends.txt','w')
+		bz = open('out/id_teman_from_teman.txt','w')
 		for a in z['friends']['data']:
-			idfromfriends.append(a['id'])
+			idfromteman.append(a['id'])
 			bz.write(a['id'] + '\n')
-			print ("\r\033[1;97m[ \033[1;92m"+str(len(idfromfriends))+"\033[1;97m ]\033[1;97m=> \033[1;97m"+a['id']),;sys.stdout.flush();time.sleep(0.0001)
+			print ("\r\033[1;97m[ \033[1;92m"+str(len(idfromteman))+"\033[1;97m ]\033[1;97m=> \033[1;97m"+a['id']),;sys.stdout.flush();time.sleep(0.0001)
 		bz.close()
 		print '\r\033[1;91m[\033[1;96m✓\033[1;91m] \033[1;92mSuccessfully get id \033[1;97m....'
-		print"\r\033[1;91m[+] \033[1;92mTotal ID \033[1;91m: \033[1;97m%s"%(len(idfromfriends))
+		print"\r\033[1;91m[+] \033[1;92mTotal ID \033[1;91m: \033[1;97m%s"%(len(idfromteman))
 		done = raw_input("\r\033[1;91m[+] \033[1;92mSave file with name\033[1;91m :\033[1;97m ")
-		os.rename('out/id_friend_from_friends.txt','out/'+done)
+		os.rename('out/id_teman_from_teman.txt','out/'+done)
 		print("\r\033[1;91m[+] \033[1;92mFile saved \033[1;91m: \033[1;97mout/"+done)
 		raw_input("\n\033[1;91m[ \033[1;97mBack \033[1;91m]")
 		dump()
@@ -971,5 +974,20 @@ def theif_group():
 	except requests.exceptions.ConnectionError:
                 print"\033[1;91m[✖] No connection"
                 ex()
-
+####About Tool####
+def about():
+	try:
+		time.sleep(2)
+		print "%s*devolper >>> Zoal ktoom %s" % (W, Y)
+		print "%s--------------------%s" % (R, N)
+		print " %sA Simple Python Script %sFor Get Information About Users In%s %s Facebook%s" % (W, R, W, Y, N)
+		print "%s--------------------%s" % (R, N)
+		raw_input("\n\033[1;91m[\033[1;97mBack\033[1;91m]")
+		menu()
+	except KeyError:
+                print('\033[1;91m[!] Error')
+		ex()
+	except requests.exceptions.ConnectionError:
+                print"\033[1;91m[✖] No connection"
+                ex()
 lisensi()
