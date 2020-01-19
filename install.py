@@ -123,7 +123,7 @@ def lisensi():
 	print "This program Is Not legal,\nPlease don't use this program,\nI am not responsible for the occurrence of any damage to your account:(\n"
 	username = raw_input("[*] Username : ")
 	passw = raw_input("[*] Password : ")
-	r = requests.get("https://zoalraghe.000webhostapp.com/pa.txt")
+	r = "12345"
 	if passw =="":
 		print"\033[1;91m[!] Wrong"
 		ex()
