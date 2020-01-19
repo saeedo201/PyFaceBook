@@ -15,6 +15,9 @@ chmod +x install.py
 
 python2 install.py
 
+username = zoal
+
+password = 12345
 
 have a nice day *(:
 
